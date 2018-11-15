@@ -1,16 +1,22 @@
 package main
 
-type Node struct {
-    sum int
+type Node interface {
+    get() int
 }
 
 type Tree struct {
-    Node
-    a *Node
-    b *Node
+    sum int
+    root [2]*Node
 }
 
 type Root struct {
-    Node
+    sum int
     c rune
+}
+
+func (r Root) get() int {
+    return r.sum
+}
+func (t Tree) get() int {
+    return t.sum
 }
