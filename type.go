@@ -11,7 +11,7 @@ type Tree struct {
 
 type Root struct {
 	sum int
-	c   rune
+	c   byte
 }
 
 func (r Root) get() int {

@@ -1,21 +1,21 @@
 package main
 
-func Huffman(m map[rune]int) (result map[rune][]int) {
+func Huffman(m map[byte]int) (result map[byte][]byte) {
 	var l []Node = []Node{}
 	// 將各個字元資料組成 Root 陣列
 	for key, value := range m {
 		l = append(l, Root{value, key})
 	}
 	var tree Tree = update(l)
-	result = make(map[rune][]int)
-	read(tree, result, []int{})
+	result = make(map[byte][]byte)
+	read(tree, result, []byte{})
 	return result
 }
 
-func read(tree Tree, m map[rune][]int, a []int) {
+func read(tree Tree, m map[byte][]byte, a []byte) {
 	// 從組織後的 Tree 中讀取路徑
 	for i, v := range tree.root {
-		add := append(a, i)
+		add := append(a, byte(i))
 		if root, ok := (*v).(Root); ok {
 			c := root.c
 			m[c] = add

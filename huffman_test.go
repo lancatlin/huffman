@@ -11,9 +11,9 @@ func TestHuffman(t *testing.T) {
 	if err != nil {
 		t.Error("File read Error")
 	}
-	str_data := []rune(string(data))
-	var count map[rune]int = Count(str_data)
-	var result map[rune][]int = Huffman(count)
+	str_data := []byte(string(data))
+	var count map[byte]int = Count(str_data)
+	var result map[byte][]byte = Huffman(count)
 	var l []Node = []Node{}
 	for key, value := range count {
 		l = append(l, Root{value, key})
@@ -30,6 +30,7 @@ func TestHuffman(t *testing.T) {
 		if al-bl > 2 {
 			t.Errorf("Huffman code Error: a: {%c: %d} b: {%c: %d} al: %d bl: %d\n", a.c, a.get(), b.c, b.get(), al, bl)
 		}
-		fmt.Printf("'%c'\t%d\t%d\t%v\n", a.c, a.get(), al, result[a.c])
+		//fmt.Printf("'%c'\t%d\t%d\t%v\n", a.c, a.get(), al, result[a.c])
 	}
+	fmt.Println()
 }
