@@ -10,7 +10,7 @@ func TestHuffman (t *testing.T) {
     if err != nil {
         t.Error("File read Error")
     }
-    str_data := string(data)
+    str_data := []rune(string(data))
     var count map[rune]int = Count(str_data)
     var result map[rune][]int = Huffman(count)
     var l []Node = []Node{}
