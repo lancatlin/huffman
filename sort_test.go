@@ -6,7 +6,7 @@ import (
 )
 
 func TestSort(t *testing.T) {
-    const length int = 10000
+	const length int = 10000
 	var list []Node = make([]Node, length)
 	for i := 0; i < length; i++ {
 		list[i] = Root{rand.Intn(1000000), 0}
