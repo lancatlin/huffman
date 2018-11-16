@@ -3,7 +3,6 @@ package main
 import (
     "testing"
     "io/ioutil"
-    "fmt"
 )
 
 func TestHuffman (t *testing.T) {
@@ -20,15 +19,15 @@ func TestHuffman (t *testing.T) {
     }
     QuickSort(l)
     for i, _ := range l {
-        if i == len(l) - 1 {
+        if i == len(l) - 1{
             break
         }
         a, _ := l[i].(Root)
         b, _ := l[i+1].(Root)
         al := len(result[a.c])
         bl := len(result[b.c])
-        if al < bl {
-            t.Errorf("Huffman code Error: a: %s b: %s al: %d bl: %s", a, b, al, bl)
+        if al - bl > 2 {
+            t.Errorf("Huffman code Error: a: {%c: %d} b: {%c: %d} al: %d bl: %d\n", a.c, a.get(), b.c, b.get(), al, bl)
         }
     }
 }

@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 func Huffman (m map[rune]int) (result map[rune][]int) {
     //var tree Tree
     var l []Node = []Node{}
