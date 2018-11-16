@@ -14,5 +14,5 @@ func TestEncode(t *testing.T) {
     data := []rune(string(file))
     var m map[rune][]int = Huffman(Count(data))
     var result []byte = Encode(m, data)
-    fmt.Printf("%X\n", result)
+    fmt.Printf("data length: %d; result length: %d\n", len(file), len(result))
 }
