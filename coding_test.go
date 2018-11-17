@@ -13,9 +13,11 @@ func TestEncode(t *testing.T) {
 	}
 	data := file
 	var m map[byte][]byte = Huffman(Count(data))
-	var result []byte = Encode(m, data)
-	fmt.Printf("data length: %d; result length: %d\n", len(file), len(result))
-	var decode []byte = Decode(m, result)
-	fmt.Printf("decode: %s\n", string(decode))
+	result, last := Encode(m, data)
+	fmt.Printf("data length: %d; result length: %d; last: %d\n", len(file), len(result), last)
+	var decode []byte = Decode(m, result, last)
+	if equal(decode, data) == false {
+		t.Error("Not Equal")
+	}
 	fmt.Print("\n")
 }
