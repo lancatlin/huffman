@@ -18,7 +18,9 @@ func read(tree Tree, m map[byte][]byte, a []byte) {
 		add := append(a, byte(i))
 		if root, ok := (*v).(Root); ok {
 			c := root.c
-			m[c] = add
+			var tmp []byte = make([]byte, len(add))
+			copy(tmp, add)
+			m[c] = tmp
 		} else {
 			read((*v).(Tree), m, add)
 		}

@@ -15,6 +15,13 @@ func TestHuffman(t *testing.T) {
 	var count map[byte]int = Count(str_data)
 	var result map[byte][]byte = Huffman(count)
 	var l []Node = []Node{}
+	for k1, v1 := range result {
+		for k2, v2 := range result {
+			if equal(v1, v2) && k1 != k2 {
+				t.Errorf("%c and %c is the same %v\n", k1, k2, v1)
+			}
+		}
+	}
 	for key, value := range count {
 		l = append(l, Root{value, key})
 	}
