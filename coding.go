@@ -1,5 +1,25 @@
 package main
 
+import "fmt"
+import "time"
+
+type Rootl struct {
+	c    byte
+	path []byte
+}
+
+func (r Rootl) get() int {
+	return len(r.path)
+}
+
+func SliceTo64(list []byte) (x uint64) {
+	for i, v := range list {
+		x += uint64(uint64(v) << uint64(63-i))
+	}
+	x += 1 << uint64(63-len(list))
+	return
+}
+
 func Encode(m map[byte][]byte, data []byte) (charlist []byte, last int) {
 	var list []byte = make([]byte, 0)
 	for _, v := range data {
@@ -25,6 +45,7 @@ func Encode(m map[byte][]byte, data []byte) (charlist []byte, last int) {
 }
 
 func Decode(m map[byte][]byte, data []byte, last int) (result []byte) {
+	s := time.Now()
 	var list []byte = make([]byte, 0, len(data)<<3)
 	for i, v := range data {
 		var swap []byte
@@ -38,22 +59,31 @@ func Decode(m map[byte][]byte, data []byte, last int) (result []byte) {
 		}
 		list = append(list, swap...)
 	}
+	uintmap := make(map[uint64]byte)
+	for key, value := range m {
+		x := SliceTo64(value)
+		uintmap[x] = key
+	}
 	head := 0
 	for i, _ := range list {
-		for key, value := range m {
-			if equal(list[head:i], value) {
-				result = append(result, key)
-				head = i
-			}
+		if head == i {
+			continue
+		}
+		x := SliceTo64(list[head:i])
+		if v, ok := uintmap[x]; ok {
+			result = append(result, v)
+			head = i
 		}
 	}
+	fmt.Println(time.Since(s))
 	return
 }
 
-func equal(s1, s2 []byte) bool {
+func equal(s1 []byte, s2 []byte, flag bool) bool {
 	if (s1 == nil) != (s1 == nil) {
 		return false
-	} else if len(s1) != len(s2) {
+	}
+	if len(s1) != len(s2) {
 		return false
 	}
 	for i, _ := range s1 {
