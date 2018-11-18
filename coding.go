@@ -19,7 +19,7 @@ func Encode(m map[byte][]byte, data []byte) (charlist []byte) {
 	for _, v := range data {
 		list = append(list, m[v]...)
 	}
-	charlist = listToByte(list)
+	charlist = listToByte(append(list, 1))
 	return
 }
 
@@ -29,7 +29,6 @@ func listToByte(list []byte) (data []byte) {
 		for j := 0; j < 8; j++ {
 			// if over index
 			if i+j >= len(list) {
-				char += 1 << byte(7-j)
 				break
 			} else {
 				char += list[i+j] << byte(7-j)

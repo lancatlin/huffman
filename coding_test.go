@@ -8,7 +8,7 @@ import (
 )
 
 func TestEncode(t *testing.T) {
-	file, err := ioutil.ReadFile("test.mp3")
+	file, err := ioutil.ReadFile(path)
 	if err != nil {
 		t.Error("Read file Error")
 	}
