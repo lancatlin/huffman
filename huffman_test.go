@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"io/ioutil"
 	"testing"
@@ -17,7 +18,7 @@ func TestHuffman(t *testing.T) {
 	var l []Node = []Node{}
 	for k1, v1 := range result {
 		for k2, v2 := range result {
-			if equal(v1, v2, false) && k1 != k2 {
+			if bytes.Equal(v1, v2) && k1 != k2 {
 				t.Errorf("'%c' and '%c' is the same %v\n", k1, k2, v1)
 			}
 		}

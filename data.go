@@ -8,7 +8,6 @@ import (
 
 type Data struct {
 	Tree map[byte][]byte
-	Last int
 	Data []byte
 }
 
@@ -40,10 +39,10 @@ func (d *Data) Read(path string) error {
 func NewData(data []byte) *Data {
 	d := new(Data)
 	d.Tree = Huffman(Count(data))
-	d.Data, d.Last = Encode(d.Tree, data)
+	d.Data = Encode(d.Tree, data)
 	return d
 }
 
 func LoadData(data *Data) []byte {
-	return Decode(data.Tree, data.Data, data.Last)
+	return Decode(data.Tree, data.Data)
 }

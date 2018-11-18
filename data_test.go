@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"io/ioutil"
+	"os"
 	"testing"
 )
 
@@ -31,6 +32,10 @@ func TestFile(t *testing.T) {
 	}
 	d := new(Data)
 	err = d.Read(name)
+	if err != nil {
+		t.Error(err.Error())
+	}
+	err = os.Remove(name)
 	if err != nil {
 		t.Error(err.Error())
 	}
