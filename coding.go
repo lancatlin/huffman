@@ -57,7 +57,6 @@ func Decode(m map[byte][]byte, data []byte) (result []byte) {
 	for key, value := range m {
 		x := SliceTo64(value)
 		uintmap[x] = key
-		//fmt.Printf("%c\t%064b\n", key, x)
 	}
 	list := byteToList(data)
 	head := 0
@@ -72,11 +71,9 @@ func Decode(m map[byte][]byte, data []byte) (result []byte) {
 			head = i
 		}
 		if i == end {
-			fmt.Println(list[i:])
 			break
 		}
 	}
-	//fmt.Printf("data len: %d\tlist len: %d\tresult len: %d\n", len(data), len(list)/8+1, len(result))
 	fmt.Println(time.Since(s))
 	return result
 }
