@@ -8,7 +8,7 @@ import (
 )
 
 func TestHuffman(t *testing.T) {
-	data, err := ioutil.ReadFile("test.txt")
+	data, err := ioutil.ReadFile(path)
 	if err != nil {
 		t.Error("File read Error")
 	}

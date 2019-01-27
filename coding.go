@@ -14,6 +14,19 @@ func SliceTo64(list []byte) (x uint64) {
 	return
 }
 
+func UintToSlice(x uint64) []byte {
+	output := make([]byte, 64)
+	last_1 := 0
+	for i := 0; i < 64; i++ {
+		var y byte = byte(x >> uint(63-i) & 1)
+		if y == 1 {
+			last_1 = i
+		}
+		output[i] = y
+	}
+	return output[0:last_1]
+}
+
 func Encode(m map[byte][]byte, data []byte) (charlist []byte) {
 	var list []byte = make([]byte, 0)
 	for _, v := range data {

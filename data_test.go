@@ -11,7 +11,7 @@ var path string
 var name string
 
 func init() {
-	flag.StringVar(&path, "path", "test.txt", "input the file path")
+	flag.StringVar(&path, "path", "output/test.md", "input the file path")
 	flag.StringVar(&name, "name", "", "file output name")
 	flag.Parse()
 }
@@ -40,7 +40,7 @@ func TestFile(t *testing.T) {
 		t.Error(err.Error())
 	}
 	result := LoadData(d)
-	err = ioutil.WriteFile("output/"+path, result, 0644)
+	err = ioutil.WriteFile(path+".out", result, 0644)
 	if err != nil {
 		t.Error(err.Error())
 	}

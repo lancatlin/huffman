@@ -25,3 +25,15 @@ func TestEncode(t *testing.T) {
 	}
 	fmt.Print("\n")
 }
+
+func TestSliceTo64(t *testing.T) {
+	slice := []byte{0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0}
+	x := SliceTo64(slice)
+	output := UintToSlice(x)
+	t.Log(slice, output)
+	for i, v := range slice {
+		if v != output[i] {
+			t.Error("Not Equal")
+		}
+	}
+}

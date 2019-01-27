@@ -7,7 +7,7 @@ import (
 )
 
 type Data struct {
-	Tree map[byte][]byte
+	Tree map[byte]uint64
 	Data []byte
 }
 
@@ -39,12 +39,29 @@ func (d *Data) Read(path string) error {
 
 func NewData(data []byte) *Data {
 	d := new(Data)
-	d.Tree = Huffman(Count(data))
-	d.Data = Encode(d.Tree, data)
+	tree := Huffman(Count(data))
+	d.Data = Encode(tree, data)
+	d.Tree = Treeto64(tree)
 	data_len = len(d.Data)
 	return d
 }
 
 func LoadData(data *Data) []byte {
-	return Decode(data.Tree, data.Data)
+	return Decode(UintToTree(data.Tree), data.Data)
+}
+
+func Treeto64(tree map[byte][]byte) (output map[byte]uint64) {
+	output = make(map[byte]uint64)
+	for key, value := range tree {
+		output[key] = SliceTo64(value)
+	}
+	return
+}
+
+func UintToTree(tree map[byte]uint64) (output map[byte][]byte) {
+	output = make(map[byte][]byte)
+	for key, value := range tree {
+		output[key] = UintToSlice(value)
+	}
+	return
 }
