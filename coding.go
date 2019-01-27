@@ -6,15 +6,15 @@ import (
 	"time"
 )
 
-func SliceTo64(list []byte) (x uint64) {
+func SliceTo64(list []byte) (x uint) {
 	for i, v := range list {
-		x += uint64(v) << uint64(63-i)
+		x += uint(v) << uint(63-i)
 	}
-	x += 1 << uint64(63-len(list))
+	x += 1 << uint(63-len(list))
 	return
 }
 
-func UintToSlice(x uint64) []byte {
+func UintToSlice(x uint) []byte {
 	output := make([]byte, 64)
 	last_1 := 0
 	for i := 0; i < 64; i++ {
@@ -66,7 +66,7 @@ func byteToList(data []byte) (list []byte) {
 
 func Decode(m map[byte][]byte, data []byte) (result []byte) {
 	s := time.Now()
-	uintmap := make(map[uint64]byte)
+	uintmap := make(map[uint]byte)
 	for key, value := range m {
 		x := SliceTo64(value)
 		uintmap[x] = key

@@ -7,7 +7,7 @@ import (
 )
 
 type Data struct {
-	Tree map[byte]uint64
+	Tree map[byte]uint
 	Data []byte
 }
 
@@ -50,15 +50,15 @@ func LoadData(data *Data) []byte {
 	return Decode(UintToTree(data.Tree), data.Data)
 }
 
-func Treeto64(tree map[byte][]byte) (output map[byte]uint64) {
-	output = make(map[byte]uint64)
+func Treeto64(tree map[byte][]byte) (output map[byte]uint) {
+	output = make(map[byte]uint)
 	for key, value := range tree {
 		output[key] = SliceTo64(value)
 	}
 	return
 }
 
-func UintToTree(tree map[byte]uint64) (output map[byte][]byte) {
+func UintToTree(tree map[byte]uint) (output map[byte][]byte) {
 	output = make(map[byte][]byte)
 	for key, value := range tree {
 		output[key] = UintToSlice(value)

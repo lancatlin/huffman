@@ -47,8 +47,8 @@ func main() {
 		}
 		data := NewData(file) //開始編碼
 		data.Save(output)
-		lf, lr := (len(file)), (len(data.Data))
-		log.Printf("input: %d\toutput: %d\tTree: %d\tratio: %.2f%%\n", lf, lr, total_len-data_len, (100 * float64(lr) / float64(lf)))
+		lf := (len(file))
+		log.Printf("input: %d\toutput: %d\tTree: %d\tratio: %.2f%%\n", lf, total_len, total_len-data_len, (100 * float64(total_len) / float64(lf)))
 	} else {
 		data := new(Data)
 		data.Read(input)
