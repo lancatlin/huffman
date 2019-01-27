@@ -18,6 +18,7 @@ func (d Data) Save(path string) error {
 	if err != nil {
 		return err
 	}
+	total_len = len(network.Bytes())
 	err = ioutil.WriteFile(path, network.Bytes(), 0644)
 	return err
 }
@@ -40,6 +41,7 @@ func NewData(data []byte) *Data {
 	d := new(Data)
 	d.Tree = Huffman(Count(data))
 	d.Data = Encode(d.Tree, data)
+	data_len = len(d.Data)
 	return d
 }
 

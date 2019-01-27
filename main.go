@@ -8,10 +8,13 @@ import (
 
 var input string
 var output string
-var create bool
-var extract bool
+var mode bool
+var data_len int
+var total_len int
 
 func init() {
+	var create bool
+	var extract bool
 	flag.BoolVar(&create, "c", true, "Input mode")
 	flag.BoolVar(&extract, "x", false, "Extract mode")
 	flag.StringVar(&output, "f", "", "Output file")
@@ -21,13 +24,21 @@ func init() {
 		log.Println(flag.Args())
 		return
 	}
-	if output == "" && create {
+	if create && !extract {
+		mode = true
+	} else if extract && !create {
+		mode = false
+	}
+	if output == "" && mode {
 		output = input + ".huf"
+	} else if output == "" && !mode {
+		output = input + ".out"
 	}
 }
 
 func main() {
-	if create && !extract {
+	if mode {
+		// if create
 		file, err := ioutil.ReadFile(input)
 		if err != nil {
 			log.Printf("input: %s\toutput: %s\n", input, output)
@@ -37,8 +48,8 @@ func main() {
 		data := NewData(file) //開始編碼
 		data.Save(output)
 		lf, lr := (len(file)), (len(data.Data))
-		log.Printf("input: %d\toutput: %dratio: %.2f%%\n", lf, lr, (100 * float64(lr) / float64(lf)))
-	} else if extract || !create {
+		log.Printf("input: %d\toutput: %d\tTree: %d\tratio: %.2f%%\n", lf, lr, total_len-data_len, (100 * float64(lr) / float64(lf)))
+	} else {
 		data := new(Data)
 		data.Read(input)
 		var file []byte = LoadData(data)
